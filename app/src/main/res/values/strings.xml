@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">E-Wallet</string>
+
+    <!-- Login -->
+    <string name="welcome">Chào mừng,</string>
+    <string name="enter_password">Nhập mật khẩu của bạn</string>
+    <string name="not_you">Không phải bạn</string>
+    <string name="forgot_password">Quên mật khẩu?</string>
+    <string name="login">ĐĂNG NHẬP</string>
+
+    <!-- Login Other -->
+    <string name="enter_email_phone">Nhập email hoặc số điện thoại đăng ký</string>
+    <string name="no_account">Bạn chưa có tài khoản?</string>
+    <string name="register_now">Đăng ký ngay</string>
+
+    <!-- Register -->
+    <string name="full_name">Họ và tên</string>
+    <string name="enter_full_name">Nhập họ tên của bạn</string>
+    <string name="gender">Giới tính</string>
+    <string name="select_gender">Chọn giới tính của bạn</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="enter_phone">Số điện thoại của bạn</string>
+    <string name="address">Địa chỉ</string>
+    <string name="select_city">Chọn tỉnh/ thành phố</string>
+    <string name="detail_address">Địa chỉ chi tiết</string>
+    <string name="password">Mật khẩu</string>
+    <string name="enter_password_label">Nhập mật khẩu</string>
+    <string name="confirm_password">Nhập lại mật khẩu</string>
+    <string name="create_account">TẠO TÀI KHOẢN</string>
+    <string name="terms">By creating an account, you agree to\nVietantu\'s Terms of Service and Privacy Policy.</string>
+
+    <!-- Main -->
+    <string name="welcome_user">Xin chào, %s! 👋</string>
+    <string name="balance_available">Số dư khả dụng</string>
+    <string name="logout">ĐĂNG XUẤT</string>
+
+    <!-- Common -->
+    <string name="back">Quay lại</string>
+    <string name="upload_photo">Upload ảnh</string>
+</resources>
