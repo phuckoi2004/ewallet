@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView tvWelcome, tvBalance;
+    private TextView tvWelcome;
     private Button btnLogout;
     private DatabaseHelper dbHelper;
     private String username;
@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         tvWelcome = findViewById(R.id.tvWelcome);
-        //tvBalance = findViewById(R.id.tvBalance);
         btnLogout = findViewById(R.id.btnLogout);
 
         dbHelper = new DatabaseHelper(this);
@@ -40,9 +39,15 @@ public class MainActivity extends AppCompatActivity {
                 String displayName = user.getFullName() != null ? user.getFullName() : username;
                 tvWelcome.setText("Xin chào, " + displayName + "! 👋");
 
-                String balanceText = String.format("%,.0f VNĐ", user.getBalance());
-                tvBalance.setText(balanceText);
+                // Nếu bạn muốn hiển thị balance, uncomment dòng dưới
+                // và thêm TextView tvBalance vào activity_main.xml
+                // String balanceText = String.format("%,.0f VNĐ", user.getBalance());
+                // tvBalance.setText(balanceText);
+            } else {
+                tvWelcome.setText("Xin chào!");
             }
+        } else {
+            tvWelcome.setText("Xin chào!");
         }
     }
 

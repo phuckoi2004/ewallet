@@ -8,6 +8,16 @@
     android:padding="24dp">
 
     <TextView
+        android:id="@+id/tvBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="30000 VNĐ"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="20dp"/>
+    <TextView
         android:id="@+id/tvWelcome"
         android:text="Xin chào!"
         android:textColor="@android:color/white"

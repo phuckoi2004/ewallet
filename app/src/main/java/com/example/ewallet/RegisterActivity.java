@@ -160,7 +160,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (!isValid) return;
 
-        String username = "+84" + phone;
+        // Chuẩn hóa số điện thoại: chuyển 0xxx thành +84xxx
+        String username = normalizePhoneNumber(phone);
 
         if (dbHelper.checkUsernameExists(username)) {
             tilPhone.setError("Số điện thoại đã được đăng ký");
@@ -182,6 +183,16 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean isValidVietnamesePhone(String phone) {
-        return phone.matches("^(03|05|07|08|09)[0-9]{8}$");
+        // Chấp nhận cả 0xxx và +84xxx
+        return phone.matches("^(0|\\+84)(3|5|7|8|9)[0-9]{8}$");
+    }
+
+    private String normalizePhoneNumber(String phone) {
+        // Nếu bắt đầu bằng 0, chuyển thành +84
+        if (phone.startsWith("0")) {
+            return "+84" + phone.substring(1);
+        }
+        // Nếu đã có +84, giữ nguyên
+        return phone;
     }
 }

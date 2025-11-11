@@ -88,22 +88,35 @@ public class LoginOtherActivity extends AppCompatActivity {
 
         if (!isValid) return;
 
-        if (dbHelper.checkUser(email, password)) {
-            String displayName = extractDisplayName(email);
+        // Chuẩn hóa số điện thoại nếu cần
+        String username = normalizePhone(email);
+
+        if (dbHelper.checkUser(username, password)) {
+            // Lấy thông tin user từ database
+            DatabaseHelper.User user = dbHelper.getUserByUsername(username);
+            String displayName = "User";
+
+            if (user != null && user.getFullName() != null && !user.getFullName().isEmpty()) {
+                displayName = user.getFullName();
+            } else {
+                displayName = formatPhoneNumber(username);
+            }
+
+            // Lưu vào SharedPreferences
             prefs.edit()
-                    .putString("last_username", email)
+                    .putString("last_username", username)
                     .putString("display_name", displayName)
                     .apply();
 
             Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(LoginOtherActivity.this, MainActivity.class);
-            intent.putExtra("username", email);
+            intent.putExtra("username", username);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
         } else {
-            if (dbHelper.checkUsernameExists(email)) {
+            if (dbHelper.checkUsernameExists(username)) {
                 tilPassword.setError("Mật khẩu không đúng");
                 edtPassword.setText("");
                 edtPassword.requestFocus();
@@ -117,18 +130,26 @@ public class LoginOtherActivity extends AppCompatActivity {
         if (Patterns.EMAIL_ADDRESS.matcher(input).matches()) {
             return true;
         }
-        if (input.matches("^(\\+84|0)(3|5|7|8|9)[0-9]{8}$")) {
+        // Chấp nhận số bắt đầu bằng 0, +84, hoặc 84
+        if (input.matches("^(0|\\+84|84)(3|5|7|8|9)[0-9]{8}$")) {
             return true;
         }
         return false;
     }
 
-    private String extractDisplayName(String email) {
-        if (email.contains("@")) {
-            String name = email.substring(0, email.indexOf("@"));
-            return name.substring(0, 1).toUpperCase() + name.substring(1);
+    private String normalizePhone(String input) {
+        // Nếu là email thì trả về nguyên gốc
+        if (input.contains("@")) {
+            return input;
         }
-        return formatPhoneNumber(email);
+
+        // Nếu bắt đầu bằng 0, chuyển thành +84
+        if (input.startsWith("0") && input.matches("^0(3|5|7|8|9)[0-9]{8}$")) {
+            return "+84" + input.substring(1);
+        }
+
+        // Nếu đã có +84 thì giữ nguyên
+        return input;
     }
 
     private String formatPhoneNumber(String phone) {
